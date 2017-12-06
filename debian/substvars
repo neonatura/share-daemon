@@ -1,0 +1,2 @@
+shlibs:Depends=libc6 (>= 2.17), libshare, libusb-1.0-0 (>= 2:1.0.9~)
+misc:Depends=
