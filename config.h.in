@@ -914,6 +914,9 @@
 /* Define to 1 if you have the `share' library (-lshare). */
 #undef HAVE_LIBSHARE
 
+/* Define if the USB-1.0 library is installed. */
+#undef HAVE_LIBUSB
+
 /* Define to 1 if you have the <limits.h> header file. */
 #undef HAVE_LIMITS_H
 

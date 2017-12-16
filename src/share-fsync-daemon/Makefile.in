@@ -33,7 +33,6 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-noinst_PROGRAMS = shfsyncd_static$(EXEEXT)
 @HAVE_FSYNC_DAEMON_TRUE@sbin_PROGRAMS = shfsyncd$(EXEEXT)
 subdir = src/share-fsync-daemon
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -146,7 +145,7 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(sbindir)"
-PROGRAMS = $(noinst_PROGRAMS) $(sbin_PROGRAMS)
+PROGRAMS = $(sbin_PROGRAMS)
 am__shfsyncd_SOURCES_DIST = fsync_pref.h fsync_user.h fsync_server.h \
 	fsync_cycle.h fsync_pref.c fsync_user.c fsync_server.c \
 	fsync_cycle.c sync/sync.c sync/sync.h sync/sync_share.c \
@@ -164,20 +163,6 @@ shfsyncd_LDADD = $(LDADD)
 shfsyncd_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(shfsyncd_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-am__objects_4 = shfsyncd_static-fsync_pref.$(OBJEXT) \
-	shfsyncd_static-fsync_user.$(OBJEXT) \
-	shfsyncd_static-fsync_server.$(OBJEXT) \
-	shfsyncd_static-fsync_cycle.$(OBJEXT)
-am__objects_5 = shfsyncd_static-sync.$(OBJEXT) \
-	shfsyncd_static-sync_share.$(OBJEXT) \
-	shfsyncd_static-sync_linux.$(OBJEXT)
-am_shfsyncd_static_OBJECTS = $(am__objects_1) $(am__objects_4) \
-	$(am__objects_5)
-shfsyncd_static_OBJECTS = $(am_shfsyncd_static_OBJECTS)
-shfsyncd_static_DEPENDENCIES =
-shfsyncd_static_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(shfsyncd_static_CFLAGS) \
-	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__depfiles_maybe = depfiles
@@ -191,8 +176,8 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(shfsyncd_SOURCES) $(shfsyncd_static_SOURCES)
-DIST_SOURCES = $(am__shfsyncd_SOURCES_DIST) $(shfsyncd_static_SOURCES)
+SOURCES = $(shfsyncd_SOURCES)
+DIST_SOURCES = $(am__shfsyncd_SOURCES_DIST)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -1134,15 +1119,6 @@ common_sources = \
 @HAVE_FSYNC_DAEMON_TRUE@								-I$(top_srcdir)/src/share-daemon/bits \
 @HAVE_FSYNC_DAEMON_TRUE@								-lcrypt -O3
 
-shfsyncd_static_SOURCES = $(common_headers) $(common_sources) $(sync_sources)
-shfsyncd_static_LDADD = -lrt
-#$(top_builddir)/src/gnu/libgnu.a -lrt
-shfsyncd_static_CFLAGS = -DSHARE_PUB_DAEMON \
-								-I$(top_srcdir)/src/share-lib \
-								-I$(top_srcdir)/src/sexe \
-								-I$(top_srcdir)/src/share-daemon/bits \
-								-lcrypt -g
-
 all: all-am
 
 .SUFFIXES:
@@ -1177,15 +1153,6 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
-
-clean-noinstPROGRAMS:
-	@list='$(noinst_PROGRAMS)'; test -n "$$list" || exit 0; \
-	echo " rm -f" $$list; \
-	rm -f $$list || exit $$?; \
-	test -n "$(EXEEXT)" || exit 0; \
-	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
-	echo " rm -f" $$list; \
-	rm -f $$list
 install-sbinPROGRAMS: $(sbin_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	test -z "$(sbindir)" || $(MKDIR_P) "$(DESTDIR)$(sbindir)"
@@ -1232,9 +1199,6 @@ clean-sbinPROGRAMS:
 shfsyncd$(EXEEXT): $(shfsyncd_OBJECTS) $(shfsyncd_DEPENDENCIES) 
 	@rm -f shfsyncd$(EXEEXT)
 	$(shfsyncd_LINK) $(shfsyncd_OBJECTS) $(shfsyncd_LDADD) $(LIBS)
-shfsyncd_static$(EXEEXT): $(shfsyncd_static_OBJECTS) $(shfsyncd_static_DEPENDENCIES) 
-	@rm -f shfsyncd_static$(EXEEXT)
-	$(shfsyncd_static_LINK) $(shfsyncd_static_OBJECTS) $(shfsyncd_static_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -1249,13 +1213,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shfsyncd-sync.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shfsyncd-sync_linux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shfsyncd-sync_share.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shfsyncd_static-fsync_cycle.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shfsyncd_static-fsync_pref.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shfsyncd_static-fsync_server.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shfsyncd_static-fsync_user.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shfsyncd_static-sync.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shfsyncd_static-sync_linux.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shfsyncd_static-sync_share.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -1375,104 +1332,6 @@ shfsyncd-sync_linux.obj: sync/sync_linux.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='sync/sync_linux.c' object='shfsyncd-sync_linux.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_CFLAGS) $(CFLAGS) -c -o shfsyncd-sync_linux.obj `if test -f 'sync/sync_linux.c'; then $(CYGPATH_W) 'sync/sync_linux.c'; else $(CYGPATH_W) '$(srcdir)/sync/sync_linux.c'; fi`
-
-shfsyncd_static-fsync_pref.o: fsync_pref.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -MT shfsyncd_static-fsync_pref.o -MD -MP -MF $(DEPDIR)/shfsyncd_static-fsync_pref.Tpo -c -o shfsyncd_static-fsync_pref.o `test -f 'fsync_pref.c' || echo '$(srcdir)/'`fsync_pref.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/shfsyncd_static-fsync_pref.Tpo $(DEPDIR)/shfsyncd_static-fsync_pref.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='fsync_pref.c' object='shfsyncd_static-fsync_pref.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -c -o shfsyncd_static-fsync_pref.o `test -f 'fsync_pref.c' || echo '$(srcdir)/'`fsync_pref.c
-
-shfsyncd_static-fsync_pref.obj: fsync_pref.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -MT shfsyncd_static-fsync_pref.obj -MD -MP -MF $(DEPDIR)/shfsyncd_static-fsync_pref.Tpo -c -o shfsyncd_static-fsync_pref.obj `if test -f 'fsync_pref.c'; then $(CYGPATH_W) 'fsync_pref.c'; else $(CYGPATH_W) '$(srcdir)/fsync_pref.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/shfsyncd_static-fsync_pref.Tpo $(DEPDIR)/shfsyncd_static-fsync_pref.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='fsync_pref.c' object='shfsyncd_static-fsync_pref.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -c -o shfsyncd_static-fsync_pref.obj `if test -f 'fsync_pref.c'; then $(CYGPATH_W) 'fsync_pref.c'; else $(CYGPATH_W) '$(srcdir)/fsync_pref.c'; fi`
-
-shfsyncd_static-fsync_user.o: fsync_user.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -MT shfsyncd_static-fsync_user.o -MD -MP -MF $(DEPDIR)/shfsyncd_static-fsync_user.Tpo -c -o shfsyncd_static-fsync_user.o `test -f 'fsync_user.c' || echo '$(srcdir)/'`fsync_user.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/shfsyncd_static-fsync_user.Tpo $(DEPDIR)/shfsyncd_static-fsync_user.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='fsync_user.c' object='shfsyncd_static-fsync_user.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -c -o shfsyncd_static-fsync_user.o `test -f 'fsync_user.c' || echo '$(srcdir)/'`fsync_user.c
-
-shfsyncd_static-fsync_user.obj: fsync_user.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -MT shfsyncd_static-fsync_user.obj -MD -MP -MF $(DEPDIR)/shfsyncd_static-fsync_user.Tpo -c -o shfsyncd_static-fsync_user.obj `if test -f 'fsync_user.c'; then $(CYGPATH_W) 'fsync_user.c'; else $(CYGPATH_W) '$(srcdir)/fsync_user.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/shfsyncd_static-fsync_user.Tpo $(DEPDIR)/shfsyncd_static-fsync_user.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='fsync_user.c' object='shfsyncd_static-fsync_user.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -c -o shfsyncd_static-fsync_user.obj `if test -f 'fsync_user.c'; then $(CYGPATH_W) 'fsync_user.c'; else $(CYGPATH_W) '$(srcdir)/fsync_user.c'; fi`
-
-shfsyncd_static-fsync_server.o: fsync_server.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -MT shfsyncd_static-fsync_server.o -MD -MP -MF $(DEPDIR)/shfsyncd_static-fsync_server.Tpo -c -o shfsyncd_static-fsync_server.o `test -f 'fsync_server.c' || echo '$(srcdir)/'`fsync_server.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/shfsyncd_static-fsync_server.Tpo $(DEPDIR)/shfsyncd_static-fsync_server.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='fsync_server.c' object='shfsyncd_static-fsync_server.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -c -o shfsyncd_static-fsync_server.o `test -f 'fsync_server.c' || echo '$(srcdir)/'`fsync_server.c
-
-shfsyncd_static-fsync_server.obj: fsync_server.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -MT shfsyncd_static-fsync_server.obj -MD -MP -MF $(DEPDIR)/shfsyncd_static-fsync_server.Tpo -c -o shfsyncd_static-fsync_server.obj `if test -f 'fsync_server.c'; then $(CYGPATH_W) 'fsync_server.c'; else $(CYGPATH_W) '$(srcdir)/fsync_server.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/shfsyncd_static-fsync_server.Tpo $(DEPDIR)/shfsyncd_static-fsync_server.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='fsync_server.c' object='shfsyncd_static-fsync_server.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -c -o shfsyncd_static-fsync_server.obj `if test -f 'fsync_server.c'; then $(CYGPATH_W) 'fsync_server.c'; else $(CYGPATH_W) '$(srcdir)/fsync_server.c'; fi`
-
-shfsyncd_static-fsync_cycle.o: fsync_cycle.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -MT shfsyncd_static-fsync_cycle.o -MD -MP -MF $(DEPDIR)/shfsyncd_static-fsync_cycle.Tpo -c -o shfsyncd_static-fsync_cycle.o `test -f 'fsync_cycle.c' || echo '$(srcdir)/'`fsync_cycle.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/shfsyncd_static-fsync_cycle.Tpo $(DEPDIR)/shfsyncd_static-fsync_cycle.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='fsync_cycle.c' object='shfsyncd_static-fsync_cycle.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -c -o shfsyncd_static-fsync_cycle.o `test -f 'fsync_cycle.c' || echo '$(srcdir)/'`fsync_cycle.c
-
-shfsyncd_static-fsync_cycle.obj: fsync_cycle.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -MT shfsyncd_static-fsync_cycle.obj -MD -MP -MF $(DEPDIR)/shfsyncd_static-fsync_cycle.Tpo -c -o shfsyncd_static-fsync_cycle.obj `if test -f 'fsync_cycle.c'; then $(CYGPATH_W) 'fsync_cycle.c'; else $(CYGPATH_W) '$(srcdir)/fsync_cycle.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/shfsyncd_static-fsync_cycle.Tpo $(DEPDIR)/shfsyncd_static-fsync_cycle.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='fsync_cycle.c' object='shfsyncd_static-fsync_cycle.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -c -o shfsyncd_static-fsync_cycle.obj `if test -f 'fsync_cycle.c'; then $(CYGPATH_W) 'fsync_cycle.c'; else $(CYGPATH_W) '$(srcdir)/fsync_cycle.c'; fi`
-
-shfsyncd_static-sync.o: sync/sync.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -MT shfsyncd_static-sync.o -MD -MP -MF $(DEPDIR)/shfsyncd_static-sync.Tpo -c -o shfsyncd_static-sync.o `test -f 'sync/sync.c' || echo '$(srcdir)/'`sync/sync.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/shfsyncd_static-sync.Tpo $(DEPDIR)/shfsyncd_static-sync.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='sync/sync.c' object='shfsyncd_static-sync.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -c -o shfsyncd_static-sync.o `test -f 'sync/sync.c' || echo '$(srcdir)/'`sync/sync.c
-
-shfsyncd_static-sync.obj: sync/sync.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -MT shfsyncd_static-sync.obj -MD -MP -MF $(DEPDIR)/shfsyncd_static-sync.Tpo -c -o shfsyncd_static-sync.obj `if test -f 'sync/sync.c'; then $(CYGPATH_W) 'sync/sync.c'; else $(CYGPATH_W) '$(srcdir)/sync/sync.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/shfsyncd_static-sync.Tpo $(DEPDIR)/shfsyncd_static-sync.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='sync/sync.c' object='shfsyncd_static-sync.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -c -o shfsyncd_static-sync.obj `if test -f 'sync/sync.c'; then $(CYGPATH_W) 'sync/sync.c'; else $(CYGPATH_W) '$(srcdir)/sync/sync.c'; fi`
-
-shfsyncd_static-sync_share.o: sync/sync_share.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -MT shfsyncd_static-sync_share.o -MD -MP -MF $(DEPDIR)/shfsyncd_static-sync_share.Tpo -c -o shfsyncd_static-sync_share.o `test -f 'sync/sync_share.c' || echo '$(srcdir)/'`sync/sync_share.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/shfsyncd_static-sync_share.Tpo $(DEPDIR)/shfsyncd_static-sync_share.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='sync/sync_share.c' object='shfsyncd_static-sync_share.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -c -o shfsyncd_static-sync_share.o `test -f 'sync/sync_share.c' || echo '$(srcdir)/'`sync/sync_share.c
-
-shfsyncd_static-sync_share.obj: sync/sync_share.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -MT shfsyncd_static-sync_share.obj -MD -MP -MF $(DEPDIR)/shfsyncd_static-sync_share.Tpo -c -o shfsyncd_static-sync_share.obj `if test -f 'sync/sync_share.c'; then $(CYGPATH_W) 'sync/sync_share.c'; else $(CYGPATH_W) '$(srcdir)/sync/sync_share.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/shfsyncd_static-sync_share.Tpo $(DEPDIR)/shfsyncd_static-sync_share.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='sync/sync_share.c' object='shfsyncd_static-sync_share.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -c -o shfsyncd_static-sync_share.obj `if test -f 'sync/sync_share.c'; then $(CYGPATH_W) 'sync/sync_share.c'; else $(CYGPATH_W) '$(srcdir)/sync/sync_share.c'; fi`
-
-shfsyncd_static-sync_linux.o: sync/sync_linux.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -MT shfsyncd_static-sync_linux.o -MD -MP -MF $(DEPDIR)/shfsyncd_static-sync_linux.Tpo -c -o shfsyncd_static-sync_linux.o `test -f 'sync/sync_linux.c' || echo '$(srcdir)/'`sync/sync_linux.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/shfsyncd_static-sync_linux.Tpo $(DEPDIR)/shfsyncd_static-sync_linux.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='sync/sync_linux.c' object='shfsyncd_static-sync_linux.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -c -o shfsyncd_static-sync_linux.o `test -f 'sync/sync_linux.c' || echo '$(srcdir)/'`sync/sync_linux.c
-
-shfsyncd_static-sync_linux.obj: sync/sync_linux.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -MT shfsyncd_static-sync_linux.obj -MD -MP -MF $(DEPDIR)/shfsyncd_static-sync_linux.Tpo -c -o shfsyncd_static-sync_linux.obj `if test -f 'sync/sync_linux.c'; then $(CYGPATH_W) 'sync/sync_linux.c'; else $(CYGPATH_W) '$(srcdir)/sync/sync_linux.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/shfsyncd_static-sync_linux.Tpo $(DEPDIR)/shfsyncd_static-sync_linux.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='sync/sync_linux.c' object='shfsyncd_static-sync_linux.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(shfsyncd_static_CFLAGS) $(CFLAGS) -c -o shfsyncd_static-sync_linux.obj `if test -f 'sync/sync_linux.c'; then $(CYGPATH_W) 'sync/sync_linux.c'; else $(CYGPATH_W) '$(srcdir)/sync/sync_linux.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -1596,8 +1455,8 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-libtool clean-noinstPROGRAMS \
-	clean-sbinPROGRAMS mostlyclean-am
+clean-am: clean-generic clean-libtool clean-sbinPROGRAMS \
+	mostlyclean-am
 
 distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
@@ -1668,15 +1527,15 @@ uninstall-am: uninstall-sbinPROGRAMS
 .MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
-	clean-libtool clean-noinstPROGRAMS clean-sbinPROGRAMS ctags \
-	distclean distclean-compile distclean-generic \
-	distclean-libtool distclean-tags distdir dvi dvi-am html \
-	html-am info info-am install install-am install-data \
-	install-data-am install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am install-info \
-	install-info-am install-man install-pdf install-pdf-am \
-	install-ps install-ps-am install-sbinPROGRAMS install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
+	clean-libtool clean-sbinPROGRAMS ctags distclean \
+	distclean-compile distclean-generic distclean-libtool \
+	distclean-tags distdir dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-sbinPROGRAMS install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-compile \
 	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
 	tags uninstall uninstall-am uninstall-sbinPROGRAMS

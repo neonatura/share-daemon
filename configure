@@ -77886,7 +77886,7 @@ $as_echo "$as_me: error: The USB-1.0 library must be installed. (centos) yum ins
 fi
 
 fi
- if test $HAVE_LIBUSB; then
+ if test x"$HAVE_LIBUSB" = x"1"; then
   HAVE_LIBUSB_TRUE=
   HAVE_LIBUSB_FALSE='#'
 else
@@ -77894,6 +77894,13 @@ else
   HAVE_LIBUSB_FALSE=
 fi
 
+if test x"$HAVE_LIBUSB" = x"1"; then
+
+cat >>confdefs.h <<_ACEOF
+#define HAVE_LIBUSB 1
+_ACEOF
+
+fi
 
 # Check whether --enable-debug was given.
 if test "${enable_debug+set}" = set; then

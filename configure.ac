@@ -424,7 +424,10 @@ if test "x$usb" = "xtrue" ; then
   AC_CHECK_LIB([usb-1.0], [libusb_close], HAVE_LIBUSB=1, 
     AC_MSG_ERROR([The USB-1.0 library must be installed. (centos) yum install libusb1 libusb1-devel]))
 fi
-AM_CONDITIONAL(HAVE_LIBUSB, test $HAVE_LIBUSB) 
+AM_CONDITIONAL(HAVE_LIBUSB, test x"$HAVE_LIBUSB" = x"1") 
+if test x"$HAVE_LIBUSB" = x"1"; then
+  AC_DEFINE_UNQUOTED([HAVE_LIBUSB], 1, [Define if the USB-1.0 library is installed.])
+fi
 
 AC_ARG_ENABLE(debug,
 AS_HELP_STRING([--enable-debug],
