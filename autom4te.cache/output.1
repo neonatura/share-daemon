@@ -806,18 +806,6 @@ PHPCONFIG
 HAVE_HELP2MAN_FALSE
 HAVE_HELP2MAN_TRUE
 HELP2MAN
-HAVE_SWIG_FALSE
-HAVE_SWIG_TRUE
-SWIG_PROG
-HAVE_JAR_FALSE
-HAVE_JAR_TRUE
-JAR
-HAVE_JAVAC_FALSE
-HAVE_JAVAC_TRUE
-JAVAC
-HAVE_JAVA_FALSE
-HAVE_JAVA_TRUE
-JAVA
 HAVE_DOXYGEN_FALSE
 HAVE_DOXYGEN_TRUE
 DOXYGEN
@@ -12229,9 +12217,9 @@ CC="$lt_save_CC"
 
 
 
-version_patch=01
+version_patch=1
 
-version_info=3:01:0
+version_info=3:1:0
 
 
 # docs
@@ -22509,7 +22497,6 @@ _ACEOF
 esac
 
 
-CFLAGS="$CFLAGS -I/lib/jvm/java-*/include"
 CPPFLAGS="$CPPFLAGS -I/usr/include/php/Zend -I/usr/include/php/TSRM -I/usr/include/php/main -I/usr/include/php"
 
 
@@ -78093,221 +78080,6 @@ if test -n "$DOXYGEN"; then
 
 fi
 
-for ac_prog in java
-do
-  # Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-{ $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if test "${ac_cv_prog_JAVA+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  if test -n "$JAVA"; then
-  ac_cv_prog_JAVA="$JAVA" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-    ac_cv_prog_JAVA="$ac_prog"
-    $as_echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-IFS=$as_save_IFS
-
-fi
-fi
-JAVA=$ac_cv_prog_JAVA
-if test -n "$JAVA"; then
-  { $as_echo "$as_me:$LINENO: result: $JAVA" >&5
-$as_echo "$JAVA" >&6; }
-else
-  { $as_echo "$as_me:$LINENO: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-  test -n "$JAVA" && break
-done
-
-if test -z "$JAVA";
-   then { $as_echo "$as_me:$LINENO: WARNING: Java not found - continuing without Java Compiler support" >&5
-$as_echo "$as_me: WARNING: Java not found - continuing without Java Compiler support" >&2;}
-fi
- if test -n "$JAVA"; then
-  HAVE_JAVA_TRUE=
-  HAVE_JAVA_FALSE='#'
-else
-  HAVE_JAVA_TRUE='#'
-  HAVE_JAVA_FALSE=
-fi
-
-for ac_prog in javac
-do
-  # Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-{ $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if test "${ac_cv_prog_JAVAC+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  if test -n "$JAVAC"; then
-  ac_cv_prog_JAVAC="$JAVAC" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-    ac_cv_prog_JAVAC="$ac_prog"
-    $as_echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-IFS=$as_save_IFS
-
-fi
-fi
-JAVAC=$ac_cv_prog_JAVAC
-if test -n "$JAVAC"; then
-  { $as_echo "$as_me:$LINENO: result: $JAVAC" >&5
-$as_echo "$JAVAC" >&6; }
-else
-  { $as_echo "$as_me:$LINENO: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-  test -n "$JAVAC" && break
-done
-
-if test -z "$JAVAC";
-   then { $as_echo "$as_me:$LINENO: WARNING: Java Compiler not found - continuing without Java Compiler support" >&5
-$as_echo "$as_me: WARNING: Java Compiler not found - continuing without Java Compiler support" >&2;}
-fi
- if test -n "$JAVAC"; then
-  HAVE_JAVAC_TRUE=
-  HAVE_JAVAC_FALSE='#'
-else
-  HAVE_JAVAC_TRUE='#'
-  HAVE_JAVAC_FALSE=
-fi
-
-for ac_prog in jar
-do
-  # Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-{ $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if test "${ac_cv_prog_JAR+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  if test -n "$JAR"; then
-  ac_cv_prog_JAR="$JAR" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-    ac_cv_prog_JAR="$ac_prog"
-    $as_echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-IFS=$as_save_IFS
-
-fi
-fi
-JAR=$ac_cv_prog_JAR
-if test -n "$JAR"; then
-  { $as_echo "$as_me:$LINENO: result: $JAR" >&5
-$as_echo "$JAR" >&6; }
-else
-  { $as_echo "$as_me:$LINENO: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-  test -n "$JAR" && break
-done
-
-if test -z "$JAR";
-   then { $as_echo "$as_me:$LINENO: WARNING: Jar not found - continuing without Jar support" >&5
-$as_echo "$as_me: WARNING: Jar not found - continuing without Jar support" >&2;}
-fi
- if test -n "$JAR"; then
-  HAVE_JAR_TRUE=
-  HAVE_JAR_FALSE='#'
-else
-  HAVE_JAR_TRUE='#'
-  HAVE_JAR_FALSE=
-fi
-
-
-# swig - generate java stubs to access base C libshare library.
-# Extract the first word of "swig", so it can be a program name with args.
-set dummy swig; ac_word=$2
-{ $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if test "${ac_cv_prog_SWIG_PROG+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  if test -n "$SWIG_PROG"; then
-  ac_cv_prog_SWIG_PROG="$SWIG_PROG" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-    ac_cv_prog_SWIG_PROG="swig"
-    $as_echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-IFS=$as_save_IFS
-
-  test -z "$ac_cv_prog_SWIG_PROG" && ac_cv_prog_SWIG_PROG="true"
-fi
-fi
-SWIG_PROG=$ac_cv_prog_SWIG_PROG
-if test -n "$SWIG_PROG"; then
-  { $as_echo "$as_me:$LINENO: result: $SWIG_PROG" >&5
-$as_echo "$SWIG_PROG" >&6; }
-else
-  { $as_echo "$as_me:$LINENO: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-if test -z "$SWIG_PROG";
-   then { $as_echo "$as_me:$LINENO: WARNING: SWIG not found - continuing without SWIG support\n (ubuntu) apt-get install swig\n (centos) yum install swig" >&5
-$as_echo "$as_me: WARNING: SWIG not found - continuing without SWIG support\n (ubuntu) apt-get install swig\n (centos) yum install swig" >&2;}
-fi
- if test x"$SWIG_PROG" = x"swig"; then
-  HAVE_SWIG_TRUE=
-  HAVE_SWIG_FALSE='#'
-else
-  HAVE_SWIG_TRUE='#'
-  HAVE_SWIG_FALSE=
-fi
-
-
 # help2man
 # Extract the first word of "help2man", so it can be a program name with args.
 set dummy help2man; ac_word=$2
@@ -79037,34 +78809,6 @@ if test -z "${HAVE_DOXYGEN_TRUE}" && test -z "${HAVE_DOXYGEN_FALSE}"; then
   { { $as_echo "$as_me:$LINENO: error: conditional \"HAVE_DOXYGEN\" was never defined.
 Usually this means the macro was only invoked conditionally." >&5
 $as_echo "$as_me: error: conditional \"HAVE_DOXYGEN\" was never defined.
-Usually this means the macro was only invoked conditionally." >&2;}
-   { (exit 1); exit 1; }; }
-fi
-if test -z "${HAVE_JAVA_TRUE}" && test -z "${HAVE_JAVA_FALSE}"; then
-  { { $as_echo "$as_me:$LINENO: error: conditional \"HAVE_JAVA\" was never defined.
-Usually this means the macro was only invoked conditionally." >&5
-$as_echo "$as_me: error: conditional \"HAVE_JAVA\" was never defined.
-Usually this means the macro was only invoked conditionally." >&2;}
-   { (exit 1); exit 1; }; }
-fi
-if test -z "${HAVE_JAVAC_TRUE}" && test -z "${HAVE_JAVAC_FALSE}"; then
-  { { $as_echo "$as_me:$LINENO: error: conditional \"HAVE_JAVAC\" was never defined.
-Usually this means the macro was only invoked conditionally." >&5
-$as_echo "$as_me: error: conditional \"HAVE_JAVAC\" was never defined.
-Usually this means the macro was only invoked conditionally." >&2;}
-   { (exit 1); exit 1; }; }
-fi
-if test -z "${HAVE_JAR_TRUE}" && test -z "${HAVE_JAR_FALSE}"; then
-  { { $as_echo "$as_me:$LINENO: error: conditional \"HAVE_JAR\" was never defined.
-Usually this means the macro was only invoked conditionally." >&5
-$as_echo "$as_me: error: conditional \"HAVE_JAR\" was never defined.
-Usually this means the macro was only invoked conditionally." >&2;}
-   { (exit 1); exit 1; }; }
-fi
-if test -z "${HAVE_SWIG_TRUE}" && test -z "${HAVE_SWIG_FALSE}"; then
-  { { $as_echo "$as_me:$LINENO: error: conditional \"HAVE_SWIG\" was never defined.
-Usually this means the macro was only invoked conditionally." >&5
-$as_echo "$as_me: error: conditional \"HAVE_SWIG\" was never defined.
 Usually this means the macro was only invoked conditionally." >&2;}
    { (exit 1); exit 1; }; }
 fi

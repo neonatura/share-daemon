@@ -19,14 +19,13 @@ AM_CONDITIONAL([KMOD_DIR], [test -f /lib/modules/`uname -r`/build])
 
 LT_INIT
 
-version_patch=01
+version_patch=1
 AC_SUBST(version_patch)
-version_info=3:01:0
+version_info=3:1:0
 AC_SUBST(version_info)
 
 # docs
 AC_CONFIG_FILES([bin/README.txt], [chmod -wx bin/README.txt])
-AC_CONFIG_FILES([release.sh], [chmod a+rwx release.sh])
 
 # Architecture
 AC_MSG_CHECKING([for supported operating system])
@@ -209,7 +208,6 @@ AC_SYS_LARGEFILE
 AC_ISC_POSIX
 AC_C_INLINE
 
-CFLAGS="$CFLAGS -I/lib/jvm/java-*/include"
 CPPFLAGS="$CPPFLAGS -I/usr/include/php/Zend -I/usr/include/php/TSRM -I/usr/include/php/main -I/usr/include/php"
 AC_SUBST(CPPFLAGS)
 
@@ -455,29 +453,6 @@ fi
 AM_CONDITIONAL([LIBUNISTRING_COMPILE_UNIWIDTH_WIDTH], [false])
 AM_CONDITIONAL([HAVE_DOXYGEN],
 [test -n "$DOXYGEN"])AM_COND_IF([HAVE_DOXYGEN], [AC_CONFIG_FILES([doc/shared/doxygen.conf])])
-
-AC_CHECK_PROGS([JAVA], [java])
-if test -z "$JAVA";
-   then AC_MSG_WARN([Java not found - continuing without Java Compiler support])
-fi
-AM_CONDITIONAL([HAVE_JAVA], [test -n "$JAVA"])
-AC_CHECK_PROGS([JAVAC], [javac])
-if test -z "$JAVAC";
-   then AC_MSG_WARN([Java Compiler not found - continuing without Java Compiler support])
-fi
-AM_CONDITIONAL([HAVE_JAVAC], [test -n "$JAVAC"])
-AC_CHECK_PROGS([JAR], [jar])
-if test -z "$JAR";
-   then AC_MSG_WARN([Jar not found - continuing without Jar support])
-fi
-AM_CONDITIONAL([HAVE_JAR], [test -n "$JAR"])
-
-# swig - generate java stubs to access base C libshare library.
-AC_CHECK_PROG(SWIG_PROG, [swig], [swig], [true])
-if test -z "$SWIG_PROG";
-   then AC_MSG_WARN([SWIG not found - continuing without SWIG support\n (ubuntu) apt-get install swig\n (centos) yum install swig])
-fi
-AM_CONDITIONAL(HAVE_SWIG, [test x"$SWIG_PROG" = x"swig"])
 
 # help2man
 AC_CHECK_PROG(HELP2MAN, [help2man], [help2man], [true])
