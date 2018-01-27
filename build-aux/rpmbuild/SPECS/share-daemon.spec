@@ -50,6 +50,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %doc
 %{_sbindir}/shared
+%{_sbindir}/shfsyncd
 %{_mandir}/man1/shared.1.gz
 
 
