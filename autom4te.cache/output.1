@@ -12225,8 +12225,6 @@ version_info=3:1:0
 # docs
 ac_config_files="$ac_config_files bin/README.txt"
 
-ac_config_files="$ac_config_files release.sh"
-
 
 # Architecture
 { $as_echo "$as_me:$LINENO: checking for supported operating system" >&5
@@ -79780,7 +79778,6 @@ do
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
     "bin/README.txt") CONFIG_FILES="$CONFIG_FILES bin/README.txt" ;;
-    "release.sh") CONFIG_FILES="$CONFIG_FILES release.sh" ;;
     "scripts/initd/shared") CONFIG_FILES="$CONFIG_FILES scripts/initd/shared" ;;
     "scripts/initd/shfsyncd") CONFIG_FILES="$CONFIG_FILES scripts/initd/shfsyncd" ;;
     "doc/shared/doxygen.conf") CONFIG_FILES="$CONFIG_FILES doc/shared/doxygen.conf" ;;
@@ -81535,7 +81532,6 @@ _LT_EOF
 
  ;;
     "bin/README.txt":F) chmod -wx bin/README.txt ;;
-    "release.sh":F) chmod a+rwx release.sh ;;
     "scripts/initd/shared":F) chmod +x scripts/initd/shared ;;
     "scripts/initd/shfsyncd":F) chmod +x scripts/initd/shfsyncd ;;
 

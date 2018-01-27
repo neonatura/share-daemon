@@ -35,8 +35,7 @@ host_triplet = @host@
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(srcdir)/release.sh.in $(top_srcdir)/configure \
-	$(top_srcdir)/scripts/initd/shared.in \
+	$(top_srcdir)/configure $(top_srcdir)/scripts/initd/shared.in \
 	$(top_srcdir)/scripts/initd/shfsyncd.in INSTALL \
 	build-aux/compile build-aux/config.guess \
 	build-aux/config.rpath build-aux/config.sub build-aux/depcomp \
@@ -150,8 +149,7 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = release.sh scripts/initd/shared \
-	scripts/initd/shfsyncd
+CONFIG_CLEAN_FILES = scripts/initd/shared scripts/initd/shfsyncd
 CONFIG_CLEAN_VPATH_FILES =
 SOURCES =
 DIST_SOURCES =
@@ -1171,8 +1169,6 @@ $(srcdir)/config.h.in:  $(am__configure_deps)
 
 distclean-hdr:
 	-rm -f config.h stamp-h1
-release.sh: $(top_builddir)/config.status $(srcdir)/release.sh.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
 scripts/initd/shared: $(top_builddir)/config.status $(top_srcdir)/scripts/initd/shared.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 scripts/initd/shfsyncd: $(top_builddir)/config.status $(top_srcdir)/scripts/initd/shfsyncd.in
