@@ -14,7 +14,7 @@ endif
 
 if HAVE_HELP2MAN
 dist_man_MANS = \
-	shared
+	man/man1/shared.1
 endif
 
 man/man1/shared.1: helpfile.stamp
