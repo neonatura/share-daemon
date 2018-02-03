@@ -1,4 +1,4 @@
-libshare (3.01) stable; urgency=low
+share-daemon (3.01) stable; urgency=low
 
   * Debian release (Closes: #1) 
 
