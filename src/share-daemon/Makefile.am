@@ -256,33 +256,23 @@ txtest_CFLAGS = $(daemon_flags)
 #	$(top_srcdir)/scripts/make-tests.sh $(srcdir)/test/txtest_*.c > $(srcdir)/test/txtest.c
 
 
-if HAVE_INITD_DIR
-EXTRA_DIST = $(top_builddir)/scripts/initd/shared
+
+
+if HAVE_SYSTEMCTL
+SYSD_FILE = /etc/systemd/system/shared.service
 
 install-exec-hook:
-	rm -f $(INITD_DIR)/init.d/shared  
-	rm -f $(INITD_DIR)/rc3.d/S85shared  
-	rm -f $(INITD_DIR)/rc3.d/K85shared  
-	rm -f $(INITD_DIR)/rc4.d/S85shared  
-	rm -f $(INITD_DIR)/rc4.d/K85shared  
-	rm -f $(INITD_DIR)/rc5.d/S85shared  
-	rm -f $(INITD_DIR)/rc5.d/K85shared  
-	cp $(top_builddir)/scripts/initd/shared $(INITD_DIR)/init.d/
-	cd $(INITD_DIR)/rc3.d && $(LN_S) ../init.d/shared S85shared
-	cd $(INITD_DIR)/rc3.d && $(LN_S) ../init.d/shared K85shared
-	cd $(INITD_DIR)/rc4.d && $(LN_S) ../init.d/shared S85shared
-	cd $(INITD_DIR)/rc4.d && $(LN_S) ../init.d/shared K85shared
-	cd $(INITD_DIR)/rc5.d && $(LN_S) ../init.d/shared S85shared
-	cd $(INITD_DIR)/rc5.d && $(LN_S) ../init.d/shared K85shared
+	echo "[Unit]" > $(SYSD_FILE) 
+	echo "Description=Share Network Daemon" >> $(SYSD_FILE) 
+	echo "After=network.target" >> $(SYSD_FILE) 
+	echo "[Service]" >> $(SYSD_FILE) 
+	echo "ExecStart=$(sbindir)/shared -nf" >> $(SYSD_FILE)
+	systemctl daemon-reload 
+	@echo "Run 'systemctl enable shared' to enable on system startup."
 
 uninstall-hook:
-	rm -f $(INITD_DIR)/init.d/shared  
-	rm -f $(INITD_DIR)/rc3.d/S85shared  
-	rm -f $(INITD_DIR)/rc3.d/K85shared  
-	rm -f $(INITD_DIR)/rc4.d/S85shared  
-	rm -f $(INITD_DIR)/rc4.d/K85shared  
-	rm -f $(INITD_DIR)/rc5.d/S85shared  
-	rm -f $(INITD_DIR)/rc5.d/K85shared  
+	rm -f $(SYSD_FILE)
+	systemctl daemon-reload 
 endif
 
 

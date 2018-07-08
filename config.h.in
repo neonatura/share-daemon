@@ -30,8 +30,8 @@
 /* Define to the number of bits in type 'wint_t'. */
 #undef BITSIZEOF_WINT_T
 
-/* Define to one of '_getb67', 'GETB67', 'getb67' for Cray-2 and Cray-YMP
-   systems. This function is required for 'alloca.c' support on those systems.
+/* Define to one of `_getb67', `GETB67', `getb67' for Cray-2 and Cray-YMP
+   systems. This function is required for `alloca.c' support on those systems.
    */
 #undef CRAY_STACKSEG_END
 
@@ -41,7 +41,7 @@
 /* Define for the CRISv32 architecture. */
 #undef CRISV32
 
-/* Define to 1 if using 'alloca.c'. */
+/* Define to 1 if using `alloca.c'. */
 #undef C_ALLOCA
 
 /* Define to 1 if the C locale may have encoding errors. */
@@ -1905,7 +1905,7 @@
 /* Define to 1 if the system has the type `struct in6_addr'. */
 #undef HAVE_STRUCT_IN6_ADDR
 
-/* Define to 1 if `decimal_point' is member of `struct lconv'. */
+/* Define to 1 if `decimal_point' is a member of `struct lconv'. */
 #undef HAVE_STRUCT_LCONV_DECIMAL_POINT
 
 /* Define to 1 if the system has the type `struct passwd'. */
@@ -1920,31 +1920,31 @@
 /* Define to 1 if the system has the type `struct stat64'. */
 #undef HAVE_STRUCT_STAT64
 
-/* Define to 1 if `st_atimensec' is member of `struct stat'. */
+/* Define to 1 if `st_atimensec' is a member of `struct stat'. */
 #undef HAVE_STRUCT_STAT_ST_ATIMENSEC
 
-/* Define to 1 if `st_atimespec.tv_nsec' is member of `struct stat'. */
+/* Define to 1 if `st_atimespec.tv_nsec' is a member of `struct stat'. */
 #undef HAVE_STRUCT_STAT_ST_ATIMESPEC_TV_NSEC
 
-/* Define to 1 if `st_atim.st__tim.tv_nsec' is member of `struct stat'. */
+/* Define to 1 if `st_atim.st__tim.tv_nsec' is a member of `struct stat'. */
 #undef HAVE_STRUCT_STAT_ST_ATIM_ST__TIM_TV_NSEC
 
-/* Define to 1 if `st_atim.tv_nsec' is member of `struct stat'. */
+/* Define to 1 if `st_atim.tv_nsec' is a member of `struct stat'. */
 #undef HAVE_STRUCT_STAT_ST_ATIM_TV_NSEC
 
-/* Define to 1 if `st_birthtimensec' is member of `struct stat'. */
+/* Define to 1 if `st_birthtimensec' is a member of `struct stat'. */
 #undef HAVE_STRUCT_STAT_ST_BIRTHTIMENSEC
 
-/* Define to 1 if `st_birthtimespec.tv_nsec' is member of `struct stat'. */
+/* Define to 1 if `st_birthtimespec.tv_nsec' is a member of `struct stat'. */
 #undef HAVE_STRUCT_STAT_ST_BIRTHTIMESPEC_TV_NSEC
 
-/* Define to 1 if `st_birthtim.tv_nsec' is member of `struct stat'. */
+/* Define to 1 if `st_birthtim.tv_nsec' is a member of `struct stat'. */
 #undef HAVE_STRUCT_STAT_ST_BIRTHTIM_TV_NSEC
 
-/* Define to 1 if `st_rdev' is member of `struct stat'. */
+/* Define to 1 if `st_rdev' is a member of `struct stat'. */
 #undef HAVE_STRUCT_STAT_ST_RDEV
 
-/* Define to 1 if `tm_zone' is member of `struct tm'. */
+/* Define to 1 if `tm_zone' is a member of `struct tm'. */
 #undef HAVE_STRUCT_TM_TM_ZONE
 
 /* Define if struct utimbuf is declared -- usually in <utime.h>. Some systems
@@ -2288,6 +2288,9 @@
 /* Define to the one symbol short name of this package. */
 #undef PACKAGE_TARNAME
 
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
+
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
 
@@ -2400,9 +2403,9 @@
 /* If using the C implementation of alloca, define if you know the
    direction of stack growth for your system; otherwise it will be
    automatically deduced at runtime.
-        STACK_DIRECTION > 0 => grows toward higher addresses
-        STACK_DIRECTION < 0 => grows toward lower addresses
-        STACK_DIRECTION = 0 => direction of growth unknown */
+	STACK_DIRECTION > 0 => grows toward higher addresses
+	STACK_DIRECTION < 0 => grows toward lower addresses
+	STACK_DIRECTION = 0 => direction of growth unknown */
 #undef STACK_DIRECTION
 
 /* Define to 1 if the `S_IS*' macros in <sys/stat.h> do not work properly. */

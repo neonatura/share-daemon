@@ -38,22 +38,21 @@ int inittx_account(tx_account_t *acc, uint64_t uid)
 {
   shseed_t seed;
   shauth_t *auth;
-  shfs_t *fs;
   shfs_ino_t *file;
+	shpam_t *pam;
   int err;
 
   acc->acc_uid = uid;
 
-  fs = NULL;
-  file = shpam_shadow_file(&fs);
-  if (!file)
+	pam = shpam_open(uid);
+  if (!pam)
     return (SHERR_IO);
 
   /* record peer */
-  memcpy(&acc->acc_peer, shfs_peer(fs), sizeof(acc->acc_peer));
+  memcpy(&acc->acc_peer, shfs_peer(pam->fs), sizeof(acc->acc_peer));
 
-  err = shpam_shadow_auth_load(file, uid, SHAUTH_SCOPE_REMOTE, &acc->acc_auth);
-  shfs_free(&fs);
+  err = shpam_shadow_auth_load(pam->file, uid, SHAUTH_SCOPE_REMOTE, &acc->acc_auth);
+	shpam_close(&pam);
   if (err)
     return (err);  
 
@@ -131,8 +130,7 @@ int txop_account_recv(shpeer_t *cli_peer, tx_account_t *acc)
 {
   shseed_t seed;
   shauth_t *auth;
-  shfs_t *fs;
-  SHFL *shadow_file;
+	shpam_t *pam;
   uint64_t uid;
   int err;
 
@@ -142,13 +140,12 @@ int txop_account_recv(shpeer_t *cli_peer, tx_account_t *acc)
   uid = acc->acc_uid;
   auth = &acc->acc_auth;
 
+	pam = shpam_open(uid);
+	if (!pam)
+		return (SHERR_IO);
 
-
-  fs = NULL;
-  shadow_file = shpam_shadow_file(&fs);
-
-  err = shpam_shadow_remote_set(shadow_file, uid, auth);
-  shfs_free(&fs);
+  err = shpam_shadow_remote_set(pam->file, uid, auth);
+	shpam_close(&pam);
   if (err)
     return (err);
 

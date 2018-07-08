@@ -48,14 +48,21 @@ On Ubuntu you can run the following:
 	apt-get install libusb-1.0.0-dev
 
 You can compile and install the included "libusb-1.0.XX.zip" on any platform.
+
 Download Url: https://sourceforge.net/projects/libusb/files/libusb-1.0/libusb-1.0.21/libusb-1.0.21.zip/download
 
 "libusb-1.0" compile instructions:
+
 	unzip libusb-1.0.XX.zip
+
 	cd libusb-1.0.XX
+
 	./autogen.sh
+
 	./configure
+
 	make
+
 	make install
 
 

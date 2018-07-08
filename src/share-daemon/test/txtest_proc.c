@@ -102,7 +102,7 @@ int test_account_init(uint64_t *uid_p)
   int err;
 
   priv = NULL;
-  err = shuser_admin_default(&priv);
+  err = shuser_admin_default("txtest", &priv);
   if (err)
     return (err);
 
@@ -137,6 +137,7 @@ int get_test_account_stamp(shtime_t *stamp_p)
   return (0);
 }
 
+#if 0
 void get_test_account_ident(uint64_t *uid_p, shpeer_t **peer_p)
 {
   static shpeer_t ret_peer;
@@ -151,6 +152,7 @@ void get_test_account_ident(uint64_t *uid_p, shpeer_t **peer_p)
   *uid_p = shpam_uid(TXTEST_USERNAME);
   *peer_p = &ret_peer;
 }
+#endif
 
 shfs_ino_t *get_test_file_inode(shfs_t **fs_p)
 {

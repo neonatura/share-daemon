@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.63])
-AC_INIT([shared], [3.01])
+AC_INIT([shared], [3.02])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/share-daemon])
@@ -19,9 +19,9 @@ AM_CONDITIONAL([KMOD_DIR], [test -f /lib/modules/`uname -r`/build])
 
 LT_INIT
 
-version_patch=1
+version_patch=2
 AC_SUBST(version_patch)
-version_info=3:1:0
+version_info=3:2:0
 AC_SUBST(version_info)
 
 # docs
@@ -327,10 +327,6 @@ AC_CHECK_LIB([share], [get_libshare_version], ,
 
 AC_CHECK_MEMBERS([struct stat.st_rdev])
 
-# initd scripts #
-AC_CONFIG_FILES([scripts/initd/shared], [chmod +x scripts/initd/shared])
-AC_CONFIG_FILES([scripts/initd/shfsyncd], [chmod +x scripts/initd/shfsyncd])
-
 AC_CHECK_DECL([_PATH_BSHELL],,AC_DEFINE_UNQUOTED([_PATH_BSHELL], "/bin/sh", [Define to system shell path]),[
 #ifdef HAVE_PATHS_H
 #include <paths.h>
@@ -346,11 +342,6 @@ AC_CHECK_DECL([_PATH_DEVNULL],,AC_DEFINE_UNQUOTED([_PATH_DEVNULL], "/dev/null", 
 #include <paths.h>
 #endif
 ])
-
-AM_CONDITIONAL(HAVE_INITD_DIR, [test -d /etc/rc.d])
-INITD_DIR="/etc/rc.d"
-AC_SUBST(INITD_DIR)
-
 
 AC_ARG_ENABLE([shfsyncd],
   AS_HELP_STRING([--disable-shfsyncd], [Disable the file-sync daemon.]))
@@ -473,10 +464,8 @@ else
 fi
 AC_SUBST([PHPLIBDIR])
 
-#AC_CHECK_LIB([curl], [curl_global_init], HAVE_CURL=1)
-#AM_CONDITIONAL(HAVE_CURL, test $HAVE_CURL)
-
-
+AC_CHECK_PROGS([SYSTEMCTL], [systemctl])
+AM_CONDITIONAL([HAVE_SYSTEMCTL], [test -n "$SYSTEMCTL"])
 
 HAVE_LIBGMP=0
 AC_ARG_ENABLE([ecdsa],
@@ -505,6 +494,8 @@ AC_DEFINE_UNQUOTED([POLARSSL_X509_USE_C], 1, [X509])
 AC_DEFINE_UNQUOTED([POLARSSL_RSA_C], 1, [X509])
 AC_DEFINE_UNQUOTED([POLARSSL_BIGNUM_C], 1, [X509])
 AC_DEFINE_UNQUOTED([POLARSSL_PLATFORM_C], 1, [X509])
+
+
 
 AC_OUTPUT(Makefile src/share-oauth-lib/Makefile src/share-daemon/Makefile src/share-fsync-daemon/Makefile doc/shared/Makefile bin/Makefile) 
 
