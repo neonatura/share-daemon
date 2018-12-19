@@ -1,5 +1,5 @@
 Name:           share-daemon
-Version:        3.01
+Version:        3.02
 Release:        1%{?dist}
 Summary:        The share library network synchronization daemon.
 
@@ -55,5 +55,5 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri Jan 26 2018 Neo Natura <support@neo-natura.com> - 3.01
+* Tue Jan 01 2019 Neo Natura <support@neo-natura.com> - 3.02
 - The RPM release of the libshare network synchronization daemon.
