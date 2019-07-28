@@ -1,12 +1,12 @@
 Name:           share-daemon
-Version:        3.02
+Version:        4.0
 Release:        1%{?dist}
 Summary:        The share library network synchronization daemon.
 
 Group:          System Environment/Libraries
 License:        GPLv3+
 URL:            http://www.sharelib.net/
-Source0:        http://ftp.neo-natura.com/release/share-daemon/share-daemon-3.01.tar.gz
+Source0:        http://ftp.neo-natura.com/release/share-daemon/share-daemon-3.02.tar.gz
 
 BuildRequires:  help2man, doxygen
 #Requires:       java-1.8.0-openjdk
@@ -55,5 +55,5 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Tue Jan 01 2019 Neo Natura <support@neo-natura.com> - 3.02
+* Sun Jul 29 2019 Neo Natura <support@neo-natura.com> - 4.0
 - The RPM release of the libshare network synchronization daemon.

@@ -1,6 +1,6 @@
-share-daemon (3.02) stable; urgency=low
+share-daemon (4.0) stable; urgency=low
 
-  * Debian release (Closes: #1) 
+  * Debian release
 
- -- Neo Natura <support@neo-natura.com>  Tue, 01 Jan 2019 00:00:00 -0000
+ -- Neo Natura <support@neo-natura.com>  Sun, 29 Jul 2019 00:00:00 -0000
 

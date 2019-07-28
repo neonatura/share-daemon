@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.63])
-AC_INIT([shared], [3.02])
+AC_INIT([shared], [4.0])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/share-daemon])
@@ -19,9 +19,9 @@ AM_CONDITIONAL([KMOD_DIR], [test -f /lib/modules/`uname -r`/build])
 
 LT_INIT
 
-version_patch=2
+version_patch=0
 AC_SUBST(version_patch)
-version_info=3:2:0
+version_info=4:0:0
 AC_SUBST(version_info)
 
 # docs
