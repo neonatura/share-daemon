@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.63])
-AC_INIT([shared], [4.0])
+AC_INIT([shared], [4.1])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/share-daemon])
@@ -21,7 +21,7 @@ LT_INIT
 
 version_patch=0
 AC_SUBST(version_patch)
-version_info=4:0:0
+version_info=4:1:0
 AC_SUBST(version_info)
 
 # docs
