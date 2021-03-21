@@ -69,7 +69,7 @@ int peer_add(shpeer_t *peer)
 {
 }
 
-#define MAX_TX_TABLE_SIZE 10240
+#define MAX_TX_TABLE_SIZE 16000
 int tx_table_idx;
 tx_t *tx_table[MAX_TX_TABLE_SIZE];
 
@@ -275,6 +275,7 @@ _account_stamp = acc->acc_auth.auth_stamp;
       tx = (tx_t *)alloc_context_data("TX", buf, 2);
       break;
 
+#if 0
     case TX_REFERENCE:
       tx = (tx_t *)alloc_ref(tx_table[(tx_table_idx-1)], "TX", "0101", TXREF_TEST);
       break;
@@ -282,7 +283,7 @@ _account_stamp = acc->acc_auth.auth_stamp;
     case TX_CLOCK:
       tx = (tx_t *)alloc_clock(sharedaemon_peer());
       break;
-
+#endif
   }
 
   tx_table_add(tx);
@@ -483,6 +484,8 @@ shd_t *cli;
   unsigned int i_val;
   uint64_t l_val;
 
+tx_table_idx = 0;
+
   sh_val = 0xFFF0;
   WRAP_BYTES(sh_val);
   _TRUE( ntohs(sh_val) == 0xFFF0 );
@@ -512,7 +515,6 @@ shd_t *cli;
   
   cli = sharedaemon_client_find(shpeer_kpriv(sharedaemon_peer()));
   refclock_init(&cli->cli.net.clock, &refclock_dummy_proc);
-
 
 
   for (op_type = 1; op_type < MAX_TX; op_type++) {
