@@ -1,2 +1,2 @@
-shlibs:Depends=libc6 (>= 2.17), libshare
+shlibs:Depends=libc6 (>= 2.17)
 misc:Depends=
